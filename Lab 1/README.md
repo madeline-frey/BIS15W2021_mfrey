@@ -10,4 +10,4 @@
 
 #### Also check out the [Marine Science Club](https://marinesciclubdavis.weebly.com/)
 
-## _Thank you!_
+### _Thank you!_
