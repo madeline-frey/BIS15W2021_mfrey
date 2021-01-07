@@ -1,0 +1,33 @@
+---
+title: "RMarkdown Practice"
+author: "Madeline Frey"
+date: "1/5/2021"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This is my first RMarkdown
+# _This is my first RMarkdown_
+
+[Marine Science Club Webpage](https://marinesciclubdavis.weebly.com/)
+```{r}
+2*3
+1+1+1
+9/3
+```
+
+```{r message=FALSE, warning=FALSE}
+#install.packages("tidyverse")
+library("tidyverse")
+```
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) +
+    geom_bar()
+```
+
