@@ -136,6 +136,7 @@ mean(new_vector)
 ```
 
 3. How do you interpret this result? What does this mean about NAs?  
+
 ### I don't think the arithmetic will work if there is a missing value. How can you add an NA value, and does it count when dividing? 
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
