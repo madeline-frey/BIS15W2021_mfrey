@@ -1,7 +1,7 @@
 ---
 title: "Lab 3 Homework"
 author: "Madeline Frey"
-date: "2021-01-13"
+date: "2021-01-19"
 output:
   html_document: 
     theme: spacelab
@@ -24,6 +24,10 @@ library(tidyverse)
 
 ```r
 ?msleep
+```
+
+```
+## starting httpd help server ... done
 ```
 This data comes from Savage and West 2007.
 2. Store these data into a new data frame `sleep`.
