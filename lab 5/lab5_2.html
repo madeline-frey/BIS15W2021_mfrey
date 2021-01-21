@@ -1960,21 +1960,25 @@ asgardians</code></pre>
 <li>Let’s explore who the really “big” superheros are. In the <code>superhero_info</code> data, which have a height over 200 or weight over 300?</li>
 </ol>
 <pre class="r"><code>superhero_info %&gt;% 
-  filter(height &gt; 200 | weight &gt; 300)</code></pre>
-<pre><code>## # A tibble: 65 x 10
+  filter(height &gt; 300 | weight &gt; 450)</code></pre>
+<pre><code>## # A tibble: 14 x 10
 ##    name  gender eye_color race  hair_color height publisher skin_color alignment
 ##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
-##  1 A-Bo… Male   yellow    Human No Hair       203 Marvel C… &lt;NA&gt;       good     
-##  2 Abom… Male   green     Huma… No Hair       203 Marvel C… &lt;NA&gt;       bad      
-##  3 Alien Male   &lt;NA&gt;      Xeno… No Hair       244 Dark Hor… black      bad      
-##  4 Amazo Male   red       Andr… &lt;NA&gt;          257 DC Comics &lt;NA&gt;       bad      
-##  5 Ant-… Male   blue      Human Blond         211 Marvel C… &lt;NA&gt;       good     
-##  6 Anti… Male   blue      Symb… Blond         229 Marvel C… &lt;NA&gt;       &lt;NA&gt;     
-##  7 Apoc… Male   red       Muta… Black         213 Marvel C… grey       bad      
-##  8 Bane  Male   &lt;NA&gt;      Human &lt;NA&gt;          203 DC Comics &lt;NA&gt;       bad      
-##  9 Beta… Male   &lt;NA&gt;      &lt;NA&gt;  No Hair       201 Marvel C… &lt;NA&gt;       good     
-## 10 Bloo… Female blue      Human Brown         218 Marvel C… &lt;NA&gt;       bad      
-## # … with 55 more rows, and 1 more variable: weight &lt;dbl&gt;</code></pre>
+##  1 Bloo… Female blue      Human Brown       218   Marvel C… &lt;NA&gt;       bad      
+##  2 Dark… Male   red       New … No Hair     267   DC Comics grey       bad      
+##  3 Fin … Male   red       Kaka… No Hair     975   Marvel C… green      good     
+##  4 Gala… Male   black     Cosm… Black       876   Marvel C… &lt;NA&gt;       neutral  
+##  5 Giga… Female green     &lt;NA&gt;  Red          62.5 DC Comics &lt;NA&gt;       bad      
+##  6 Groot Male   yellow    Flor… &lt;NA&gt;        701   Marvel C… &lt;NA&gt;       good     
+##  7 Hulk  Male   green     Huma… Green       244   Marvel C… green      good     
+##  8 Jugg… Male   blue      Human Red         287   Marvel C… &lt;NA&gt;       neutral  
+##  9 MODOK Male   white     Cybo… Brownn      366   Marvel C… &lt;NA&gt;       bad      
+## 10 Onsl… Male   red       Muta… No Hair     305   Marvel C… &lt;NA&gt;       bad      
+## 11 Red … Male   yellow    Huma… Black       213   Marvel C… red        neutral  
+## 12 Sasq… Male   red       &lt;NA&gt;  Orange      305   Marvel C… &lt;NA&gt;       good     
+## 13 Wolf… Female green     &lt;NA&gt;  Auburn      366   Marvel C… &lt;NA&gt;       good     
+## 14 Ymir  Male   white     Fros… No Hair     305.  Marvel C… white      good     
+## # … with 1 more variable: weight &lt;dbl&gt;</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li>Just to be clear on the <code>|</code> operator, have a look at the superheros over 300 in height…</li>
 </ol>
@@ -2018,20 +2022,20 @@ asgardians</code></pre>
 </ol>
 <pre class="r"><code>superhero_info %&gt;% 
   mutate(h_w_ratio = height/weight) %&gt;% 
-  arrange(desc(h_w_ratio))</code></pre>
+  arrange(h_w_ratio)</code></pre>
 <pre><code>## # A tibble: 734 x 11
 ##    name  gender eye_color race  hair_color height publisher skin_color alignment
 ##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
-##  1 Groot Male   yellow    Flor… &lt;NA&gt;          701 Marvel C… &lt;NA&gt;       good     
-##  2 Gala… Male   black     Cosm… Black         876 Marvel C… &lt;NA&gt;       neutral  
-##  3 Fin … Male   red       Kaka… No Hair       975 Marvel C… green      good     
-##  4 Long… Male   blue      Human Blond         188 Marvel C… &lt;NA&gt;       good     
-##  5 Jack… Male   blue      Human Brown          71 Dark Hor… &lt;NA&gt;       good     
-##  6 Rock… Male   brown     Anim… Brown         122 Marvel C… &lt;NA&gt;       good     
-##  7 Dash  Male   blue      Human Blond         122 Dark Hor… &lt;NA&gt;       good     
-##  8 Howa… Male   brown     &lt;NA&gt;  Yellow         79 Marvel C… &lt;NA&gt;       good     
-##  9 Swarm Male   yellow    Muta… No Hair       196 Marvel C… yellow     bad      
-## 10 Yoda  Male   brown     Yoda… White          66 George L… green      good     
+##  1 Giga… Female green     &lt;NA&gt;  Red          62.5 DC Comics &lt;NA&gt;       bad      
+##  2 Utga… Male   blue      Fros… White        15.2 Marvel C… &lt;NA&gt;       bad      
+##  3 Dark… Male   red       New … No Hair     267   DC Comics grey       bad      
+##  4 Jugg… Male   blue      Human Red         287   Marvel C… &lt;NA&gt;       neutral  
+##  5 Red … Male   yellow    Huma… Black       213   Marvel C… red        neutral  
+##  6 Sasq… Male   red       &lt;NA&gt;  Orange      305   Marvel C… &lt;NA&gt;       good     
+##  7 Hulk  Male   green     Huma… Green       244   Marvel C… green      good     
+##  8 Bloo… Female blue      Human Brown       218   Marvel C… &lt;NA&gt;       bad      
+##  9 Than… Male   red       Eter… No Hair     201   Marvel C… purple     bad      
+## 10 A-Bo… Male   yellow    Human No Hair     203   Marvel C… &lt;NA&gt;       good     
 ## # … with 724 more rows, and 2 more variables: weight &lt;dbl&gt;, h_w_ratio &lt;dbl&gt;</code></pre>
 </div>
 <div id="superhero_powers" class="section level2">
