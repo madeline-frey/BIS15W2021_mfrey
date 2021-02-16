@@ -165,8 +165,8 @@ gapminder_obj %>% #1952 and 2007 are already the min and max
 gapminder_obj %>% 
   group_by(year) %>% 
   summarize(mean_life_year=mean(life_exp)) %>% 
-  ggplot(aes(x=year, y=mean_life_year, color=mean_life_year))+geom_point(shape=1) +
-  geom_line()+# it doesn't like it when I add geom_line but I want a line!
+  ggplot(aes(x=year, y=mean_life_year, group=mean_life_year))+geom_point(shape=1) +
+  geom_line(aes(group=1))+
   theme(axis.text.x = element_text(hjust = 1))+
   labs(title = "Global Life Expectancy per Year",
        x = "Year",
@@ -176,11 +176,6 @@ gapminder_obj %>%
 
 ```
 ## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```
-## geom_path: Each group consists of only one observation. Do you need to adjust
-## the group aesthetic?
 ```
 
 ![](lab11_hw_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
