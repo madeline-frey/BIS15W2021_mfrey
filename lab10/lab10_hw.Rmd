@@ -92,6 +92,10 @@ deserts %>%
   filter(weight!="NA") %>% 
   ggplot(aes(x=species_id, y=weight))+geom_boxplot()+scale_y_log10()+labs(title="Species Weight", x="Species ID", y="Log 10 Weight")
 ```
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
 
 6. Add another layer to your answer from #4 using `geom_point` to get an idea of how many measurements were taken for each species.
 ```{r}
@@ -104,6 +108,7 @@ geom_point(size=3)+
 theme(axis.text.x = element_text(angle = 60, hjust = 1))+
 labs(title = "Weight Measurements per Species",x="Species",y="Number of Weight Measurements")
 ```
+</div>
 
 7. [Dipodomys merriami](https://en.wikipedia.org/wiki/Merriam's_kangaroo_rat) is the most frequently sampled animal in the study. How have the number of observations of this species changed over the years included in the study?
 ```{r}
