@@ -154,7 +154,7 @@ gapminder_obj %>%
 ```{r}
 gapminder_obj %>% 
   ggplot(aes(x=log10(gdp_percap), y= life_exp, color= continent, shape=continent))+geom_point()+
-  scale_color_brewer(palette = "Set1")+
+  scale_color_brewer(palette = "Paired")+
   theme_linedraw()+
   theme(axis.text.x = element_text(hjust = .5))+
   theme(plot.title = element_text(size = rel(1.25), hjust = 0.5))+
