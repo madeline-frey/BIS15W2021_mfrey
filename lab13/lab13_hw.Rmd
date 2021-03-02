@@ -1,0 +1,137 @@
+---
+title: "Lab 13 Homework"
+author: "Madeline Frey"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Libraries
+```{r}
+if (!require("tidyverse")) install.packages('tidyverse')
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(shiny)
+library(shinydashboard)
+library(naniar)
+```
+
+## Data
+The data for this assignment come from the [University of California Information Center](https://www.universityofcalifornia.edu/infocenter). Admissions data were collected for the years 2010-2019 for each UC campus. Admissions are broken down into three categories: applications, admits, and enrollees. The number of individuals in each category are presented by demographic.  
+```{r}
+uc_admit <- readr::read_csv("data/UC_admit.csv")
+```
+
+**1. Use the function(s) of your choice to get an idea of the overall structure of the data frame, including its dimensions, column names, variable classes, etc. As part of this, determine if there are NA's and how they are treated.**  
+```{r}
+uc_admit <- janitor::clean_names(uc_admit)
+```
+```{r}
+summary(uc_admit)
+```
+```{r}
+naniar::miss_var_summary(uc_admit)
+```
+```{r}
+glimpse(uc_admit)
+```
+```{r}
+uc_admit$campus <- as.factor(uc_admit$campus)
+uc_admit$academic_yr <- as.factor(uc_admit$academic_yr)
+```
+
+
+**2. The president of UC has asked you to build a shiny app that shows admissions by ethnicity across all UC campuses. Your app should allow users to explore year, campus, and admit category as interactive variables. Use shiny dashboard and try to incorporate the aesthetics you have learned in ggplot to make the app neat and clean.**
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "UC Admits By Ethnicity"),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+  fluidRow(
+  box(title = "Plot Options", width = 3,
+  selectInput("x", "Select Variable", choices = c("campus", "academic_yr", "category"), 
+              selected = "campus"),
+      hr(),# what does hr mean?
+      helpText("From the University of California Information Center")
+  ), # close the first box
+  box(title = "Ethnicity", width = 6,
+  plotOutput("plot", width = "600px", height = "500px")
+  ) # close the second box
+  ) # close the row
+  ) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) { 
+  
+  output$plot <- renderPlot({
+  uc_admit %>% 
+  ggplot(aes_string(x = input$x, y = "filtered_count_fr", fill= "ethnicity")) +
+  geom_col(position= "dodge")+
+  scale_color_brewer(palette= "Set1")+
+  theme_light(base_size = 18)
+  })
+  
+  # stop the app when we close it
+  session$onSessionEnded(stopApp)
+  }
+
+shinyApp(ui, server)
+
+```
+
+
+**3. Make alternate version of your app above by tracking enrollment at a campus over all of the represented years while allowing users to interact with campus, category, and ethnicity.**
+```{r}
+ui <- dashboardPage(skin="red",
+  dashboardHeader(title = "UC Enrollment"),
+  dashboardSidebar(disable = F),
+  dashboardBody(selectInput("campus", " Select Campus:", 
+                  choices=unique(uc_admit$campus)),
+  fluidRow(
+  box(title = "Plot Options", width = 4,
+  selectInput("x", "Student/Applicant Details", choices = c("ethnicity", "category"), 
+              selected = "campus"),
+      hr(),
+      helpText("Source: (https://www.universityofcalifornia.edu/infocenter). Admissions data were collected for the years 2010-2019 for each UC campus.")
+  ), 
+  box(title = "Academic Year", width = 6,
+  plotOutput("plot", width = "600px", height = "500px")
+  ) 
+  ) 
+  ) 
+  )
+server <- function(input, output, session) { 
+  
+  output$plot <- renderPlot({
+    uc_admit %>%
+      filter(campus == input$campus) %>%
+  ggplot(aes_string(x = "academic_yr", y="filtered_count_fr",fill = input$x)) +
+  geom_col(position = "dodge")+
+       scale_fill_brewer(palette = "Set1")+
+  theme_light(base_size = 18)+
+     theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+      labs(title = "UC Admission Information",x=NULL,y="Number of Admittees")
+  })
+  
+  session$onSessionEnded(stopApp)
+  }
+
+shinyApp(ui, server)
+```
+
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences. 
