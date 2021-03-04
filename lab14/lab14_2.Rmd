@@ -33,7 +33,7 @@ knitr::opts_chunk$set(fig.width=8, fig.height=6, message=FALSE)
 
 The function read.cross is for importing data into R/qtl.
 ```{r}
-#?read.cross
+?read.cross
 ```
 
 ## Example 1: Identify genomic regions that regulate blood pressure, heart rate, and heart weight
@@ -105,14 +105,14 @@ LOD score is actually an acronym for "log of the odds," LOD. LOD score actually 
 ### Single-QTL analysis
 We first calculate the QTL genotype probabilities, given the observed marker data, via the function calc.genoprob. This is done at the markers and at a grid along the chromosomes. The argument step is the density of the grid (in cM), and defines the density of later QTL analyses. To perform a single-QTL genome scan, we use the function scanone. By default, it considers the first phenotype in the input cross object (in this case, blood pressure).
 ```{r}
-sug <- calc.genoprob(sug, step=1)
+sug <- calc.genoprob(sug, step=1) #calculate QTL genotype probabilities
 out.em <- scanone(sug)
 out.em2 <- scanone(sug, pheno.col=1:4)
 ```
 The output has “class” "scanone". The summary function is passed to the function summary.scanone, and gives the maximum LOD score on each chromosome.
 ```{r}
 summary(out.em)
-summary(out.em2)
+summary(out.em2) #lod = log of odds, estimating linkage between gene and disease
 ```
 Alternatively, we can give a threshold, e.g., to only see those chromosomes with LOD > 3.
 ```{r}
@@ -150,15 +150,15 @@ data(grav)
 ## Practice
 1. Get a quick summary of the grav data. 
 ```{r}
-
+summary(grav)
 ```
 2. Make an genetic map of markers for the grav data.
 ```{r}
-
+plotMap(grav)
 ```
 3. Plot a heat map of the correlation matrix for the phenotype at all pairs of times, linked to scatterplots of the phenotypes.
 ```{r}
-
+iplotCorr(grav$pheno)
 ```
 
 ## iplotCurves
